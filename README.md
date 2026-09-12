@@ -1,3 +1,22 @@
+# Hargassner mit deutscher Übersetzung
+
+Dieser Fork ergänzt Deutsch, Englisch und Französisch über die Home-Assistant-Sprachdateien. Grundlage: [lithium73fr/hargassner-ha](https://github.com/lithium73fr/hargassner-ha).
+
+## Installation / Wechsel
+
+1. Home-Assistant-Backup erstellen.
+2. In HACS das benutzerdefinierte Repository `https://github.com/holber0/hargassner-ha` (Integration) verwenden. Die bisherige Quelle nicht zusätzlich unter derselben Integrationsdomäne installieren.
+3. Die Dateien in `custom_components/hargassner` aktualisieren und Home Assistant neu starten. Die vorhandene Integration muss nicht gelöscht oder neu eingerichtet werden.
+4. Für deutsche Entitätsnamen die Home-Assistant-Systemsprache auf Deutsch stellen; Auswahlwerte und Formulare folgen der Sprache der Oberfläche.
+
+Bestehende Unique IDs und API-Befehle bleiben unverändert. Manuell vergebene Entitätsnamen und Dashboard-Titel überschreibt die Übersetzung nicht. Interne französische Auswahlwerte bleiben für bestehende Automationen erhalten; die Oberfläche zeigt übersetzte Beschriftungen. Eigene Anlagen-/Heizkreisnamen aus der Cloud sowie unbekannte, von der API gelieferte Statustexte werden unverändert übernommen. Es werden keine Heizparameter automatisch geändert.
+
+## Prüfung
+
+`python -m unittest discover -s tests` prüft Übersetzungsschlüssel, Platzhalter und unveränderte Auswahlbefehle ohne Verbindung zur Heizung. Ein Live-Test der Darstellung in Home Assistant steht noch aus.
+
+---
+
 # Hargassner Home Assistant Integration
 
 [![hacs_badge](https://img.shields.io/badge/HACS-Custom-orange.svg)](https://github.com/hacs/integration)

@@ -1,0 +1,155 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Connexion à Hargassner",
+        "description": "Entrez vos identifiants de l'app Hargassner.",
+        "data": {
+          "email": "Email",
+          "password": "Mot de passe"
+        }
+      },
+      "installation": {
+        "title": "Choisir l'installation",
+        "description": "Plusieurs installations trouvées. Choisissez-en une.",
+        "data": {
+          "installation_id": "Installation"
+        }
+      }
+    },
+    "error": {
+      "invalid_auth": "Email ou mot de passe incorrect.",
+      "cannot_connect": "Impossible de se connecter à l'API Hargassner.",
+      "no_installations": "Aucune installation trouvée pour ce compte.",
+      "unknown": "Erreur inattendue. Consultez les journaux."
+    },
+    "abort": {
+      "already_configured": "Cette installation est déjà configurée."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Options Hargassner",
+        "data": {
+          "scan_interval": "Intervalle de mise à jour (secondes)"
+        }
+      }
+    }
+  },
+  "services": {
+    "start_ignition": {
+      "name": "Démarrer l'allumage",
+      "description": "Déclenche la séquence d'allumage de la chaudière."
+    }
+  },
+  "entity": {
+    "sensor": {
+      "heater_temp_current": {
+        "name": "{widget_name} Température chaudière"
+      },
+      "heater_temp_target": {
+        "name": "{widget_name} Température cible chaudière"
+      },
+      "smoke_temperature": {
+        "name": "{widget_name} Température fumées"
+      },
+      "outdoor_temperature": {
+        "name": "{widget_name} Température extérieure"
+      },
+      "outdoor_temperature_average": {
+        "name": "{widget_name} Température extérieure (moyenne)"
+      },
+      "heater_state": {
+        "name": "{widget_name} État chaudière"
+      },
+      "heater_program": {
+        "name": "{widget_name} Programme"
+      },
+      "fuel_stock": {
+        "name": "{widget_name} Stock combustible"
+      },
+      "efficiency": {
+        "name": "{widget_name} Rendement"
+      },
+      "flow_temp_current": {
+        "name": "{widget_name} Température départ"
+      },
+      "flow_temp_target": {
+        "name": "{widget_name} Température départ cible"
+      },
+      "room_temp_current": {
+        "name": "{widget_name} Température ambiante"
+      },
+      "room_temp_target": {
+        "name": "{widget_name} Température ambiante cible"
+      },
+      "circuit_state": {
+        "name": "{widget_name} État circuit"
+      },
+      "pump_active": {
+        "name": "{widget_name} Pompe active"
+      },
+      "online_state": {
+        "name": "État connexion",
+        "state": {
+          "En ligne": "En ligne",
+          "Hors ligne": "Hors ligne",
+          "Inconnu": "Inconnu"
+        }
+      }
+    },
+    "number": {
+      "room_temperature_heating": {
+        "name": "{widget_name} Température jour"
+      },
+      "room_temperature_reduction": {
+        "name": "{widget_name} Température nuit"
+      },
+      "deactivation_limit_heating": {
+        "name": "{widget_name} Limite désactivation chauffage"
+      },
+      "deactivation_limit_reduction_day": {
+        "name": "{widget_name} Limite désactivation réduit jour"
+      },
+      "deactivation_limit_reduction_night": {
+        "name": "{widget_name} Limite désactivation réduit nuit"
+      },
+      "steepness": {
+        "name": "{widget_name} Pente courbe de chauffe"
+      },
+      "fuel_stock": {
+        "name": "{widget_name} Stock combustible"
+      }
+    },
+    "switch": {
+      "weather_mode": {
+        "name": "{widget_name} Weather Compensation Mode"
+      },
+      "pool_heating": {
+        "name": "{widget_name} Pool Heating"
+      }
+    },
+    "select": {
+      "mode": {
+        "name": "{widget_name} Mode circuit",
+        "state": {
+          "Arrêt": "Arrêt",
+          "Automatique": "Automatique",
+          "Chauffage": "Chauffage",
+          "Réduit": "Réduit",
+          "Pont réduit": "Pont réduit",
+          "Pont chauffage": "Pont chauffage"
+        }
+      },
+      "pool_heating": {
+        "name": "{widget_name} Chauffage salle de bain",
+        "state": {
+          "Arrêt": "Arrêt",
+          "Marche": "Marche",
+          "Automatique": "Automatique"
+        }
+      }
+    }
+  }
+}

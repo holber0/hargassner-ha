@@ -94,7 +94,8 @@ class HargassnerSelectEntity(HargassnerEntity, SelectEntity):
         labels: dict[str, str],
     ) -> None:
         super().__init__(coordinator, widget_key, param_key, f"select_{widget_key}_{param_key}")
-        self._attr_name = f"{widget_name} {entity_name}"
+        self._attr_translation_key = param_key
+        self._attr_translation_placeholders = {"widget_name": widget_name}
         self._labels = labels
 
     @property

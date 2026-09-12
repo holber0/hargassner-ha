@@ -1,9 +1,9 @@
 {
   "domain": "hargassner",
   "name": "Hargassner",
-  "version": "1.0.0",
-  "documentation": "https://github.com/your-repo/hargassner-ha",
-  "issue_tracker": "https://github.com/your-repo/hargassner-ha/issues",
+  "version": "1.0.3",
+  "documentation": "https://github.com/holber0/hargassner-ha",
+  "issue_tracker": "https://github.com/holber0/hargassner-ha/issues",
   "dependencies": [],
   "codeowners": [],
   "requirements": [],

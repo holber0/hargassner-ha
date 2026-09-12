@@ -1,0 +1,155 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Mit Hargassner verbinden",
+        "description": "Gib die Zugangsdaten deiner Hargassner-App ein.",
+        "data": {
+          "email": "E-Mail-Adresse",
+          "password": "Passwort"
+        }
+      },
+      "installation": {
+        "title": "Anlage auswählen",
+        "description": "Es wurden mehrere Anlagen gefunden. Wähle eine aus.",
+        "data": {
+          "installation_id": "Anlage"
+        }
+      }
+    },
+    "error": {
+      "invalid_auth": "E-Mail-Adresse oder Passwort ist falsch.",
+      "cannot_connect": "Verbindung zur Hargassner-API nicht möglich.",
+      "no_installations": "Für dieses Konto wurden keine Anlagen gefunden.",
+      "unknown": "Unerwarteter Fehler. Prüfe die Protokolle."
+    },
+    "abort": {
+      "already_configured": "Diese Anlage ist bereits eingerichtet."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Hargassner-Einstellungen",
+        "data": {
+          "scan_interval": "Aktualisierungsintervall (Sekunden)"
+        }
+      }
+    }
+  },
+  "services": {
+    "start_ignition": {
+      "name": "Zündung starten",
+      "description": "Startet den Zündvorgang des Kessels."
+    }
+  },
+  "entity": {
+    "sensor": {
+      "heater_temp_current": {
+        "name": "{widget_name} Kesseltemperatur"
+      },
+      "heater_temp_target": {
+        "name": "{widget_name} Kessel-Solltemperatur"
+      },
+      "smoke_temperature": {
+        "name": "{widget_name} Rauchgastemperatur"
+      },
+      "outdoor_temperature": {
+        "name": "{widget_name} Außentemperatur"
+      },
+      "outdoor_temperature_average": {
+        "name": "{widget_name} Gemittelte Außentemperatur"
+      },
+      "heater_state": {
+        "name": "{widget_name} Kesselstatus"
+      },
+      "heater_program": {
+        "name": "{widget_name} Programm"
+      },
+      "fuel_stock": {
+        "name": "{widget_name} Brennstoffvorrat"
+      },
+      "efficiency": {
+        "name": "{widget_name} Wirkungsgrad"
+      },
+      "flow_temp_current": {
+        "name": "{widget_name} Vorlauftemperatur"
+      },
+      "flow_temp_target": {
+        "name": "{widget_name} Vorlauf-Solltemperatur"
+      },
+      "room_temp_current": {
+        "name": "{widget_name} Raumtemperatur"
+      },
+      "room_temp_target": {
+        "name": "{widget_name} Raum-Solltemperatur"
+      },
+      "circuit_state": {
+        "name": "{widget_name} Heizkreisstatus"
+      },
+      "pump_active": {
+        "name": "{widget_name} Pumpe aktiv"
+      },
+      "online_state": {
+        "name": "Verbindungsstatus",
+        "state": {
+          "En ligne": "Online",
+          "Hors ligne": "Offline",
+          "Inconnu": "Unbekannt"
+        }
+      }
+    },
+    "number": {
+      "room_temperature_heating": {
+        "name": "{widget_name} Tages-Raumsolltemperatur"
+      },
+      "room_temperature_reduction": {
+        "name": "{widget_name} Absenk-Raumsolltemperatur"
+      },
+      "deactivation_limit_heating": {
+        "name": "{widget_name} Außentemperatur-Abschaltgrenze Heizbetrieb"
+      },
+      "deactivation_limit_reduction_day": {
+        "name": "{widget_name} Außentemperatur-Abschaltgrenze Tagabsenkung"
+      },
+      "deactivation_limit_reduction_night": {
+        "name": "{widget_name} Außentemperatur-Abschaltgrenze Nachtabsenkung"
+      },
+      "steepness": {
+        "name": "{widget_name} Heizkurven-Steilheit"
+      },
+      "fuel_stock": {
+        "name": "{widget_name} Brennstoffvorrat"
+      }
+    },
+    "switch": {
+      "weather_mode": {
+        "name": "{widget_name} Witterungsgeführte Regelung"
+      },
+      "pool_heating": {
+        "name": "{widget_name} Poolheizung"
+      }
+    },
+    "select": {
+      "mode": {
+        "name": "{widget_name} Heizkreis-Betriebsart",
+        "state": {
+          "Arrêt": "Aus",
+          "Automatique": "Automatik",
+          "Chauffage": "Heizen",
+          "Réduit": "Absenken",
+          "Pont réduit": "Absenkbetrieb überbrücken",
+          "Pont chauffage": "Heizbetrieb überbrücken"
+        }
+      },
+      "pool_heating": {
+        "name": "{widget_name} Badheizung",
+        "state": {
+          "Arrêt": "Aus",
+          "Marche": "Ein",
+          "Automatique": "Automatik"
+        }
+      }
+    }
+  }
+}

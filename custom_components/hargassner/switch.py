@@ -25,13 +25,13 @@ class HargassnerSwitchDescription(SwitchEntityDescription):
 SWITCH_DESCRIPTIONS: list[HargassnerSwitchDescription] = [
     HargassnerSwitchDescription(
         key="weather_mode",
-        name="Weather Compensation Mode",
+        translation_key="weather_mode",
         widget_prefix="HEATING_CIRCUIT",
         icon="mdi:weather-partly-cloudy",
     ),
     HargassnerSwitchDescription(
         key="pool_heating",
-        name="Pool Heating",
+        translation_key="pool_heating",
         widget_prefix="HEATING_CIRCUIT_POOL",
         icon="mdi:pool",
     ),
@@ -100,7 +100,7 @@ class HargassnerSwitchEntity(HargassnerEntity, SwitchEntity):
             f"switch_{widget_key}_{description.key}",
         )
         self.entity_description = description
-        self._attr_name = f"{widget_name} {description.name}"
+        self._attr_translation_placeholders = {"widget_name": widget_name}
 
     @property
     def is_on(self) -> bool | None:
