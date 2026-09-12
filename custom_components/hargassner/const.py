@@ -27,3 +27,7 @@ MAX_SCAN_INTERVAL = 600
 
 # Services
 SERVICE_START_IGNITION = "start_ignition"
+
+# Optional cumulative pellet consumption source (kg).
+CONF_PELLET_CONSUMPTION_ENTITY = "pellet_consumption_entity"
+PELLET_ENERGY_KWH_PER_KG = 4.8

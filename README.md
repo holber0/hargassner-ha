@@ -62,3 +62,19 @@ curl "https://web.hargassner.at/api/installations/{id}/widgets" -H "Authorizatio
 ## Disclaimer
 
 Not affiliated with or endorsed by Hargassner GmbH.
+
+## Brennstoffverbrauch in kWh (ab v1.0.4)
+
+In den Integrationsoptionen kann ein **fortlaufender Pellet-Verbrauchszähler in kg** ausgewählt werden. Bei der lokalen Nano-PK-Integration ist dies beispielsweise `sensor.nano_pk_pellet_consumption`. Er muss `unit_of_measurement: kg` und `state_class: total_increasing` besitzen. Den Lagerbestand nicht verwenden.
+
+Die Integration legt dann **Brennstoffenergie (berechnet)** an:
+
+`kWh = kumulierter Pelletverbrauch in kg × 4,8 kWh/kg`
+
+Beispiel: 6.548 kg entsprechen 31.430,4 kWh. Das ist die Energie des eingesetzten Brennstoffs unter Annahme von 4,8 kWh/kg, keine gemessene Nutzwärme und kein Jahresverbrauch. Ein Faktor für den Kesselwirkungsgrad wird nicht eingerechnet.
+
+Der Sensor hat die HA-Klassen `energy` und `total_increasing`. Er folgt Änderungen der gewählten Quelle direkt, ohne zusätzliche Cloud-Abfragen. Fehlende, negative oder nichtnumerische Werte werden nicht als Nullverbrauch ausgegeben. Ein tatsächlicher Zählerreset wird an HA weitergereicht; falsche Rücksprünge im Quellzähler können daher auch die Statistik verfälschen. Die Quelle muss ein zuverlässiger Verbrauchszähler sein.
+
+Für Tages-, Monats- und Jahreswerte können Verbrauchszähler-Helfer (Utility Meter) mit diesem Sensor als Quelle angelegt werden. Sie beginnen ab Einrichtung und rekonstruieren keine früheren Perioden. Beim Wechsel auf einen anderen Quellzähler entsteht absichtlich eine neue Sensoridentität. Den bisherigen kWh-Sensor und den neuen nicht gleichzeitig für denselben Verbrauch zählen lassen. Vorhandene Statistiken werden nicht automatisch migriert.
+
+Die Cloud-API liefert im bisher geprüften Code keinen bestätigten kumulierten kg-Verbrauchswert. Diese Funktion benötigt deshalb eine vorhandene kg-Quelle, etwa aus Telnet. Sie ersetzt die lokale Verbrauchserfassung nicht. Eine spätere direkt belegte Cloud-Quelle kann auf dieselbe Berechnung aufsetzen.

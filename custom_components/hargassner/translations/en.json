@@ -32,8 +32,10 @@
       "init": {
         "title": "Hargassner options",
         "data": {
-          "scan_interval": "Update interval (seconds)"
-        }
+          "scan_interval": "Update interval (seconds)",
+          "pellet_consumption_entity": "Pellet consumption counter (kg, optional)"
+        },
+        "description": "Optional: select a cumulative consumption counter in kg with state class total_increasing, not fuel stock. Fuel energy = kg × 4.8 kWh/kg. No energy sensor is created without a source."
       }
     }
   },
@@ -97,6 +99,9 @@
           "Hors ligne": "Offline",
           "Inconnu": "Unknown"
         }
+      },
+      "pellet_energy": {
+        "name": "Fuel energy (calculated)"
       }
     },
     "number": {

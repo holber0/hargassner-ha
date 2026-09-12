@@ -187,6 +187,14 @@ async def async_setup_entry(
                 )
             )
 
+    # Optional energy sensor follows the local source, independently of cloud polling.
+    from .energy_sensor import PelletEnergySensor
+    from .const import CONF_PELLET_CONSUMPTION_ENTITY
+
+    source = entry.options.get(CONF_PELLET_CONSUMPTION_ENTITY)
+    if source:
+        entities.append(PelletEnergySensor(coordinator, source))
+
     # Add online state sensor
     entities.append(HargassnerOnlineSensor(coordinator))
     async_add_entities(entities)

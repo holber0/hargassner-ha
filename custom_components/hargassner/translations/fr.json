@@ -32,8 +32,10 @@
       "init": {
         "title": "Options Hargassner",
         "data": {
-          "scan_interval": "Intervalle de mise à jour (secondes)"
-        }
+          "scan_interval": "Intervalle de mise à jour (secondes)",
+          "pellet_consumption_entity": "Compteur de consommation de granulés (kg, facultatif)"
+        },
+        "description": "Facultatif : sélectionner un compteur de consommation cumulée en kg, de classe total_increasing, et non le stock. Énergie du combustible = kg × 4,8 kWh/kg. Aucun capteur sans source."
       }
     }
   },
@@ -97,6 +99,9 @@
           "Hors ligne": "Hors ligne",
           "Inconnu": "Inconnu"
         }
+      },
+      "pellet_energy": {
+        "name": "Énergie du combustible (calculée)"
       }
     },
     "number": {

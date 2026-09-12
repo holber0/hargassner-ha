@@ -10,10 +10,12 @@ from homeassistant import config_entries
 from homeassistant.const import CONF_EMAIL, CONF_PASSWORD
 from homeassistant.data_entry_flow import FlowResult
 from homeassistant.helpers.aiohttp_client import async_get_clientsession
+from homeassistant.helpers import selector
 
 from .api import HargassnerApi, HargassnerApiError, HargassnerAuthError
 from .const import (
     CONF_INSTALLATION_ID,
+    CONF_PELLET_CONSUMPTION_ENTITY,
     CONF_INSTALLATION_NAME,
     CONF_SCAN_INTERVAL,
     DEFAULT_SCAN_INTERVAL,
@@ -112,6 +114,10 @@ class HargassnerOptionsFlow(config_entries.OptionsFlow):
 
         current_interval = self._config_entry.options.get(CONF_SCAN_INTERVAL, DEFAULT_SCAN_INTERVAL)
         schema = vol.Schema({
+            vol.Optional(
+                CONF_PELLET_CONSUMPTION_ENTITY,
+                description={"suggested_value": self._config_entry.options.get(CONF_PELLET_CONSUMPTION_ENTITY)},
+            ): selector.EntitySelector(selector.EntitySelectorConfig(domain="sensor")),
             vol.Required(CONF_SCAN_INTERVAL, default=current_interval): vol.All(
                 vol.Coerce(int), vol.Range(min=MIN_SCAN_INTERVAL, max=MAX_SCAN_INTERVAL)
             ),

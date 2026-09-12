@@ -32,8 +32,10 @@
       "init": {
         "title": "Hargassner-Einstellungen",
         "data": {
-          "scan_interval": "Aktualisierungsintervall (Sekunden)"
-        }
+          "scan_interval": "Aktualisierungsintervall (Sekunden)",
+          "pellet_consumption_entity": "Pellet-Verbrauchszähler (kg, optional)"
+        },
+        "description": "Optional: einen fortlaufenden Verbrauchszähler in kg mit Zustandsklasse total_increasing auswählen, nicht den Lagerbestand. Brennstoffenergie = kg × 4,8 kWh/kg. Ohne Quelle wird kein Energiesensor angelegt."
       }
     }
   },
@@ -97,6 +99,9 @@
           "Hors ligne": "Offline",
           "Inconnu": "Unbekannt"
         }
+      },
+      "pellet_energy": {
+        "name": "Brennstoffenergie (berechnet)"
       }
     },
     "number": {
