@@ -1,3 +1,39 @@
 start_ignition:
   name: Start ignition
   description: Start the Hargassner boiler ignition sequence.
+record_pellet_refill:
+  name: Record pellet refill
+  description: Record a delivery locally without changing the boiler stock.
+  fields:
+    installation_id:
+      required: true
+      selector:
+        text:
+    date:
+      required: true
+      selector:
+        date:
+    quantity_kg:
+      required: true
+      selector:
+        number:
+          min: 0.1
+          max: 100000
+          step: 0.1
+          mode: box
+          unit_of_measurement: kg
+    note:
+      selector:
+        text:
+remove_pellet_refill:
+  name: Remove refill record
+  description: Delete an incorrect local refill record by ID.
+  fields:
+    installation_id:
+      required: true
+      selector:
+        text:
+    record_id:
+      required: true
+      selector:
+        text:

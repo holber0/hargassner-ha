@@ -1,7 +1,7 @@
 {
   "domain": "hargassner",
   "name": "Hargassner",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "documentation": "https://github.com/holber0/hargassner-ha",
   "issue_tracker": "https://github.com/holber0/hargassner-ha/issues",
   "dependencies": [],

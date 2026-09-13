@@ -238,6 +238,9 @@ async def async_setup_entry(
     if source:
         entities.append(PelletEnergySensor(coordinator, source))
 
+    from .pellet_sensor import history_entities
+    entities.extend(history_entities(coordinator))
+
     # Add online state sensor
     entities.append(HargassnerOnlineSensor(coordinator))
     async_add_entities(entities)

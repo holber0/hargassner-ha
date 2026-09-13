@@ -118,6 +118,10 @@ class HargassnerOptionsFlow(config_entries.OptionsFlow):
                 CONF_PELLET_CONSUMPTION_ENTITY,
                 description={"suggested_value": self._config_entry.options.get(CONF_PELLET_CONSUMPTION_ENTITY)},
             ): selector.EntitySelector(selector.EntitySelectorConfig(domain="sensor")),
+            vol.Optional(
+                "pellet_stock_entity",
+                description={"suggested_value": self._config_entry.options.get("pellet_stock_entity")},
+            ): selector.EntitySelector(selector.EntitySelectorConfig(domain="sensor")),
             vol.Required(CONF_SCAN_INTERVAL, default=current_interval): vol.All(
                 vol.Coerce(int), vol.Range(min=MIN_SCAN_INTERVAL, max=MAX_SCAN_INTERVAL)
             ),

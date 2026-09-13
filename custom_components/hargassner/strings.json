@@ -33,7 +33,8 @@
         "title": "Hargassner options",
         "data": {
           "scan_interval": "Update interval (seconds)",
-          "pellet_consumption_entity": "Pellet consumption counter (kg, optional)"
+          "pellet_consumption_entity": "Pellet consumption counter (kg, optional)",
+          "pellet_stock_entity": "Pellet stock in kg (optional, otherwise cloud)"
         },
         "description": "Optional: select a cumulative consumption counter in kg with state class total_increasing, not fuel stock. Fuel energy = kg × 4.8 kWh/kg. No energy sensor is created without a source."
       }
@@ -43,6 +44,36 @@
     "start_ignition": {
       "name": "Start ignition",
       "description": "Start the boiler ignition sequence."
+    },
+    "record_pellet_refill": {
+      "name": "Record pellet refill",
+      "description": "Changes the local refill ledger only; does not change boiler stock.",
+      "fields": {
+        "installation_id": {
+          "name": "Installation ID"
+        },
+        "date": {
+          "name": "Refill date"
+        },
+        "quantity_kg": {
+          "name": "Delivered quantity (kg)"
+        },
+        "note": {
+          "name": "Note"
+        }
+      }
+    },
+    "remove_pellet_refill": {
+      "name": "Remove refill record",
+      "description": "Changes the local refill ledger only; does not change boiler stock.",
+      "fields": {
+        "installation_id": {
+          "name": "Installation ID"
+        },
+        "record_id": {
+          "name": "Record ID"
+        }
+      }
     }
   },
   "entity": {
@@ -156,6 +187,33 @@
       },
       "system_pressure": {
         "name": "{widget_name} System pressure"
+      },
+      "pellet_total": {
+        "name": "Total pellet consumption (counter)"
+      },
+      "pellet_stock": {
+        "name": "Remaining pellet stock"
+      },
+      "pellet_refill_total": {
+        "name": "Total recorded pellet deliveries"
+      },
+      "pellet_last_refill": {
+        "name": "Last pellet refill"
+      },
+      "pellet_last_refill_amount": {
+        "name": "Last pellet refill quantity"
+      },
+      "pellet_refill_history": {
+        "name": "Pellet refill history"
+      },
+      "pellet_daily_average": {
+        "name": "Daily pellet consumption (trend)"
+      },
+      "pellet_days_remaining": {
+        "name": "Pellet range (forecast)"
+      },
+      "pellet_empty_date": {
+        "name": "Estimated pellet depletion date"
       }
     },
     "number": {

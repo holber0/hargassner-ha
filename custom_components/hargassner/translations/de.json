@@ -33,7 +33,8 @@
         "title": "Hargassner-Einstellungen",
         "data": {
           "scan_interval": "Aktualisierungsintervall (Sekunden)",
-          "pellet_consumption_entity": "Pellet-Verbrauchszähler (kg, optional)"
+          "pellet_consumption_entity": "Pellet-Verbrauchszähler (kg, optional)",
+          "pellet_stock_entity": "Pellet-Lagerbestand in kg (optional, sonst Cloud)"
         },
         "description": "Optional: einen fortlaufenden Verbrauchszähler in kg mit Zustandsklasse total_increasing auswählen, nicht den Lagerbestand. Brennstoffenergie = kg × 4,8 kWh/kg. Ohne Quelle wird kein Energiesensor angelegt."
       }
@@ -43,6 +44,36 @@
     "start_ignition": {
       "name": "Zündung starten",
       "description": "Startet den Zündvorgang des Kessels."
+    },
+    "record_pellet_refill": {
+      "name": "Pelletbefüllung dokumentieren",
+      "description": "Ändert nur die lokale Befüllungshistorie. Der Lagerbestand am Kessel wird nicht verändert.",
+      "fields": {
+        "installation_id": {
+          "name": "Anlagen-ID"
+        },
+        "date": {
+          "name": "Befülldatum"
+        },
+        "quantity_kg": {
+          "name": "Gelieferte Menge (kg)"
+        },
+        "note": {
+          "name": "Notiz"
+        }
+      }
+    },
+    "remove_pellet_refill": {
+      "name": "Befüllungseintrag entfernen",
+      "description": "Ändert nur die lokale Befüllungshistorie. Der Lagerbestand am Kessel wird nicht verändert.",
+      "fields": {
+        "installation_id": {
+          "name": "Anlagen-ID"
+        },
+        "record_id": {
+          "name": "Eintrags-ID"
+        }
+      }
     }
   },
   "entity": {
@@ -156,6 +187,33 @@
       },
       "system_pressure": {
         "name": "{widget_name} Anlagendruck"
+      },
+      "pellet_total": {
+        "name": "Pelletverbrauch gesamt (Zählerstand)"
+      },
+      "pellet_stock": {
+        "name": "Pellet-Restbestand"
+      },
+      "pellet_refill_total": {
+        "name": "Dokumentierte Pelletlieferungen gesamt"
+      },
+      "pellet_last_refill": {
+        "name": "Letzte Pelletbefüllung"
+      },
+      "pellet_last_refill_amount": {
+        "name": "Menge der letzten Pelletbefüllung"
+      },
+      "pellet_refill_history": {
+        "name": "Pellet-Befüllungshistorie"
+      },
+      "pellet_daily_average": {
+        "name": "Pelletverbrauch pro Tag (Trend)"
+      },
+      "pellet_days_remaining": {
+        "name": "Pellet-Reichweite (Prognose)"
+      },
+      "pellet_empty_date": {
+        "name": "Pellets voraussichtlich aufgebraucht"
       }
     },
     "number": {

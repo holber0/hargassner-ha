@@ -93,3 +93,53 @@ Grundlage sind die öffentlich ausgelieferten Portal-Komponenten Heater und Buff
 Vor Steuerbefehlen werden die Daten aktualisiert und API-Sperren geprüft. Cloud-Ausfälle sperren die neuen Bedienelemente. Fehler werden angezeigt. Der Zünddienst berücksichtigt jetzt die Anlagen-ID; bei mehreren Anlagen muss sie eindeutig angegeben werden.
 
 Nach dem Update Home Assistant neu starten. Keine Neueinrichtung erforderlich. Die Funktionen sind mit simulierten Daten getestet; ein Live-Test an der Heizung steht aus. Es wurden keine echten Start-, Stopp-, Zünd- oder Ladebefehle ausgeführt. API-Funktionen, die erst später erscheinen, werden nach Neuladen der Integration angelegt.
+
+## Pellet-Historie und Reichweite (ab v1.0.6)
+
+In den Integrationsoptionen die kg-Verbrauchsquelle auswählen, z. B. `sensor.nano_pk_pellet_consumption`. Dieser fortlaufende Zähler liefert den **Pelletverbrauch gesamt (Zählerstand)** und die bereits vorhandene **Brennstoffenergie (berechnet)**: kg × 4,8 kWh/kg. Ein Zählerreset bleibt ein Reset; dies ist keine Rekonstruktion aller historischen Verbräuche. Für tägliche, monatliche und jährliche Verbräuche HA-Verbrauchszähler-Helfer nutzen.
+
+Optional eine kg-Lagerbestandsquelle auswählen, z. B. `sensor.nano_pk_pellet_stock`. Ohne Auswahl wird der Cloud-Lagerbestand verwendet, sofern genau ein Kessel einen Wert liefert und die Cloud online ist. Der eingegebene Lieferbeleg verändert weder diesen Lagerbestand noch Kesseleinstellungen.
+
+Neue Anzeigen:
+
+- Pellet-Gesamtverbrauch und Restbestand in kg.
+- Datum und Menge der letzten dokumentierten Befüllung.
+- Summe aller dokumentierten Liefermengen (nicht mit Verbrauch verwechseln).
+- Befüllungshistorie: Anzahl der Einträge; Attribut `records` enthält die letzten 50 Einträge mit Datum, Menge, Notiz und Eintrags-ID. Alle Einträge bleiben im HA-Speicher erhalten.
+- Durchschnittlicher Tagesverbrauch, geschätzte Resttage und voraussichtliches Aufbrauchdatum.
+
+### Befüllung erfassen
+
+Unter **Entwicklerwerkzeuge → Aktionen → Hargassner: Pelletbefüllung dokumentieren** die Anlagen-ID, Datum, gelieferte kg und optional eine Notiz eintragen. Die Anlagen-ID steht auch im Attribut `installation_id` des Befüllungshistorie-Sensors. Historische Lieferungen lassen sich rückwirkend erfassen. Beispiel (Platzhalter ersetzen):
+
+```yaml
+action: hargassner.record_pellet_refill
+data:
+  installation_id: "DEINE_ANLAGEN_ID"
+  date: "2026-09-01"
+  quantity_kg: 2000
+  note: "Lieferschein"
+```
+
+Einträge lassen sich mit `hargassner.remove_pellet_refill` und ihrer `record_id` entfernen, beispielsweise vor einer Korrektur. Es werden keine früheren Befüllungen automatisch erfunden. Gleiche Datums-/Mengenpaare werden als Duplikat abgewiesen. Mehrere gleiche Lieferungen an einem Tag gegebenenfalls als Tagesgesamtmenge erfassen.
+
+### Historie im Dashboard anzeigen
+
+Eine Markdown-Karte anlegen; die Entity-ID im Beispiel durch den tatsächlichen Befüllungshistorie-Sensor ersetzen:
+
+```yaml
+type: markdown
+title: Pelletbefüllungen
+content: |
+  | Datum | Menge |
+  |---|---:|
+  {% for r in (state_attr('sensor.DEINE_BEFUELLUNGSHISTORIE', 'records') or []) | reverse %}
+  | {{ r.date }} | {{ r.quantity_kg }} kg |
+  {% endfor %}
+```
+
+### Grenzen der Prognose
+
+Resttage = aktueller Bestand / durchschnittlicher Tagesverbrauch. Die Berechnung nutzt stündliche Stichproben aus maximal 14 Tagen und startet erst nach mindestens 72 Stunden. Kein positiver Verbrauch bedeutet keine Reichweitenschätzung, nicht unendlichen Vorrat. Zählerreset, Quellenwechsel oder Messlücken über sechs Stunden starten die Lernphase neu. Bei ungültigen Quellen wird keine Prognose ausgegeben. Der Trend ist nicht wetterbereinigt; ein warmer Zeitraum ist keine zuverlässige Winterprognose. Ein Aufbrauchdatum wird bei mehr als zehn Jahren rechnerischer Reichweite nicht angezeigt.
+
+Stichproben und Lieferhistorie werden installationsbezogen in Home Assistants `.storage` gesichert und überleben normale Neustarts/Updates. Sie sind von der üblichen Recorder-Aufbewahrung unabhängig. Kein automatischer Import alter Recorder-Daten; keine automatische Erkennung von Befüllungen aus Bestandskorrekturen. Ein HA-Backup sollte den lokalen Speicher enthalten.
