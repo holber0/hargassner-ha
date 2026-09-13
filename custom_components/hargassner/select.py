@@ -78,6 +78,8 @@ async def async_setup_entry(
                 )
             )
 
+    from .boiler_control import program_entities
+    entities.extend(program_entities(coordinator))
     async_add_entities(entities)
 
 

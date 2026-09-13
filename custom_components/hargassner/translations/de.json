@@ -63,10 +63,40 @@
         "name": "{widget_name} Gemittelte Außentemperatur"
       },
       "heater_state": {
-        "name": "{widget_name} Kesselstatus"
+        "name": "{widget_name} Kesselstatus",
+        "state": {
+          "STATE_OFF": "Aus",
+          "STATE_IGNITION": "Zündung",
+          "STATE_IGNITION_WAIT": "Warten auf Zündung",
+          "STATE_EFFICIENCY_FIRE": "Leistungsbrand",
+          "STATE_THROTTLE_EFFICIENCY_FIRE": "Gedrosselter Leistungsbrand",
+          "STATE_BURN_OUT": "Ausbrand",
+          "STATE_EMBERS_KEEPING": "Gluterhaltung",
+          "STATE_RESIDUAL_HEATING": "Restwärmenutzung",
+          "STATE_OVERHEATING": "Übertemperatur",
+          "STATE_DEASHING": "Entaschung",
+          "STATE_FILLING": "Befüllung",
+          "STATE_OVERHEAT_PROTECTION": "Überhitzungsschutz",
+          "STATE_MANUAL": "Handbetrieb",
+          "STATE_DOOR_OPEN": "Tür offen",
+          "STATE_DOOR_CLOSED": "Tür geschlossen",
+          "STATE_BLOCK_PROTECTION": "Blockierschutz",
+          "STATE_ASH_DRAWER_OPEN": "Aschelade offen",
+          "STATE_BURN_ASSISTANT": "Anheizhilfe",
+          "STATE_BACKUP_MODE_LOGS": "Notbetrieb Scheitholz"
+        }
       },
       "heater_program": {
-        "name": "{widget_name} Programm"
+        "name": "{widget_name} Programm",
+        "state": {
+          "PROGRAM_MANUAL": "Manual",
+          "PROGRAM_OFF": "Aus",
+          "PROGRAM_BOILER": "Nur Warmwasser",
+          "PROGRAM_AUTOMATIC": "Automatik",
+          "PROGRAM_STOP_FIRING": "Feuerung aus",
+          "PROGRAM_PELLETS_DISABLED": "Pellets disabled",
+          "PROGRAM_CHIMNEY_SWEEPER": "Chimney sweeper"
+        }
       },
       "fuel_stock": {
         "name": "{widget_name} Brennstoffvorrat"
@@ -102,6 +132,30 @@
       },
       "pellet_energy": {
         "name": "Brennstoffenergie (berechnet)"
+      },
+      "buffer_temperature_top": {
+        "name": "{widget_name} Puffertemperatur oben"
+      },
+      "buffer_temperature_center_top": {
+        "name": "{widget_name} Puffertemperatur Mitte oben"
+      },
+      "buffer_temperature_center": {
+        "name": "{widget_name} Puffertemperatur Mitte"
+      },
+      "buffer_temperature_center_bottom": {
+        "name": "{widget_name} Puffertemperatur Mitte unten"
+      },
+      "buffer_temperature_bottom": {
+        "name": "{widget_name} Puffertemperatur unten"
+      },
+      "buffer_charge": {
+        "name": "{widget_name} Pufferfüllgrad"
+      },
+      "max_requirement": {
+        "name": "{widget_name} Höchste Pufferanforderung"
+      },
+      "system_pressure": {
+        "name": "{widget_name} Anlagendruck"
       }
     },
     "number": {
@@ -133,6 +187,9 @@
       },
       "pool_heating": {
         "name": "{widget_name} Poolheizung"
+      },
+      "heater_activation": {
+        "name": "{widget_name} Kesselfreigabe"
       }
     },
     "select": {
@@ -154,6 +211,37 @@
           "Marche": "Ein",
           "Automatique": "Automatik"
         }
+      },
+      "heater_program": {
+        "name": "{widget_name} Kessel-Betriebsart",
+        "state": {
+          "PROGRAM_OFF": "Aus",
+          "PROGRAM_AUTOMATIC": "Automatik",
+          "PROGRAM_BOILER": "Nur Warmwasser",
+          "PROGRAM_STOP_FIRING": "Feuerung aus"
+        }
+      }
+    },
+    "button": {
+      "start_heating": {
+        "name": "{widget_name} Kessel starten"
+      },
+      "stop_heating": {
+        "name": "{widget_name} Kessel stoppen"
+      },
+      "start_ignition": {
+        "name": "{widget_name} Zündung starten"
+      },
+      "force_charging": {
+        "name": "{widget_name} Puffer-Zwangsladung starten"
+      }
+    },
+    "binary_sensor": {
+      "buffer_pump": {
+        "name": "{widget_name} Pufferpumpe"
+      },
+      "heater_activated": {
+        "name": "{widget_name} Kesselfreigabe aktiv"
       }
     }
   }

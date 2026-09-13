@@ -8,6 +8,8 @@ import voluptuous as vol
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.const import CONF_EMAIL, CONF_PASSWORD, Platform
 from homeassistant.core import HomeAssistant, ServiceCall
+from homeassistant.exceptions import HomeAssistantError
+from .capabilities import cloud_ready, enabled_resource
 from homeassistant.helpers import config_validation as cv
 from homeassistant.helpers.aiohttp_client import async_get_clientsession
 
@@ -26,6 +28,8 @@ _LOGGER = logging.getLogger(__name__)
 
 PLATFORMS = [
     Platform.SENSOR,
+    Platform.BUTTON,
+    Platform.BINARY_SENSOR,
     Platform.CLIMATE,
     Platform.NUMBER,
     Platform.SWITCH,
@@ -33,7 +37,7 @@ PLATFORMS = [
 ]
 
 SERVICE_SCHEMA = vol.Schema({
-    vol.Required("installation_id"): cv.string,
+    vol.Optional("installation_id"): cv.string,
 })
 
 
@@ -69,23 +73,31 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
     # Register service: hargassner.start_ignition
     async def handle_start_ignition(call: ServiceCall) -> None:
         """Trigger ignition on the boiler."""
-        for coord in hass.data.get(DOMAIN, {}).values():
-            if not isinstance(coord, HargassnerCoordinator):
+        candidates = [coord for coord in hass.data.get(DOMAIN, {}).values()
+                      if isinstance(coord, HargassnerCoordinator)]
+        target = call.data.get("installation_id")
+        if target is not None:
+            candidates = [coord for coord in candidates if str(coord.installation_id) == str(target)]
+        if len(candidates) != 1:
+            raise HomeAssistantError("Eine eindeutige installation_id ist erforderlich.")
+        coord = candidates[0]
+        await coord.async_request_refresh()
+        if not cloud_ready(coord):
+            raise HomeAssistantError("Anlage ist nicht erreichbar.")
+        resources = []
+        for widget in (coord.data or {}).values():
+            if not isinstance(widget, dict) or widget.get("widget_type") != "HEATER":
                 continue
-            data = coord.data or {}
-            for widget_data in data.values():
-                if not isinstance(widget_data, dict):
-                    continue
-                actions = widget_data.get("actions", {})
-                ignition = actions.get("start_ignition", {})
-                if isinstance(ignition, dict) and ignition.get("resource"):
-                    await coord.async_post_action(ignition["resource"])
-                    _LOGGER.info("start_ignition triggered on %s", coord.installation_name)
-                    return
-        _LOGGER.warning("start_ignition: no ignition action found")
+            resource = enabled_resource(widget.get("actions", {}).get("start_ignition"))
+            if resource:
+                resources.append(resource)
+        if len(resources) != 1:
+            raise HomeAssistantError("Keine eindeutige, freigegebene Zündaktion vorhanden.")
+        if not await coord.async_post_action(resources[0]):
+            raise HomeAssistantError("Zündung konnte nicht gestartet werden.")
 
     if not hass.services.has_service(DOMAIN, SERVICE_START_IGNITION):
-        hass.services.async_register(DOMAIN, SERVICE_START_IGNITION, handle_start_ignition)
+        hass.services.async_register(DOMAIN, SERVICE_START_IGNITION, handle_start_ignition, schema=SERVICE_SCHEMA)
 
     # Listen for options updates (scan interval change)
     entry.async_on_unload(entry.add_update_listener(_async_update_options))

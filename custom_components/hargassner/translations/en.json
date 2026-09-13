@@ -63,10 +63,40 @@
         "name": "{widget_name} Average outside temperature"
       },
       "heater_state": {
-        "name": "{widget_name} Boiler state"
+        "name": "{widget_name} Boiler state",
+        "state": {
+          "STATE_OFF": "Off",
+          "STATE_IGNITION": "Ignition",
+          "STATE_IGNITION_WAIT": "Ignition wait",
+          "STATE_EFFICIENCY_FIRE": "Efficiency fire",
+          "STATE_THROTTLE_EFFICIENCY_FIRE": "Throttle efficiency fire",
+          "STATE_BURN_OUT": "Burn out",
+          "STATE_EMBERS_KEEPING": "Embers keeping",
+          "STATE_RESIDUAL_HEATING": "Residual heating",
+          "STATE_OVERHEATING": "Overheating",
+          "STATE_DEASHING": "Deashing",
+          "STATE_FILLING": "Filling",
+          "STATE_OVERHEAT_PROTECTION": "Overheat protection",
+          "STATE_MANUAL": "Manual",
+          "STATE_DOOR_OPEN": "Door open",
+          "STATE_DOOR_CLOSED": "Door closed",
+          "STATE_BLOCK_PROTECTION": "Block protection",
+          "STATE_ASH_DRAWER_OPEN": "Ash drawer open",
+          "STATE_BURN_ASSISTANT": "Burn assistant",
+          "STATE_BACKUP_MODE_LOGS": "Backup mode logs"
+        }
       },
       "heater_program": {
-        "name": "{widget_name} Program"
+        "name": "{widget_name} Program",
+        "state": {
+          "PROGRAM_MANUAL": "Manual",
+          "PROGRAM_OFF": "Off",
+          "PROGRAM_BOILER": "Hot water only",
+          "PROGRAM_AUTOMATIC": "Automatic",
+          "PROGRAM_STOP_FIRING": "Stop firing",
+          "PROGRAM_PELLETS_DISABLED": "Pellets disabled",
+          "PROGRAM_CHIMNEY_SWEEPER": "Chimney sweeper"
+        }
       },
       "fuel_stock": {
         "name": "{widget_name} Fuel stock"
@@ -102,6 +132,30 @@
       },
       "pellet_energy": {
         "name": "Fuel energy (calculated)"
+      },
+      "buffer_temperature_top": {
+        "name": "{widget_name} Buffer top temperature"
+      },
+      "buffer_temperature_center_top": {
+        "name": "{widget_name} Buffer upper middle temperature"
+      },
+      "buffer_temperature_center": {
+        "name": "{widget_name} Buffer middle temperature"
+      },
+      "buffer_temperature_center_bottom": {
+        "name": "{widget_name} Buffer lower middle temperature"
+      },
+      "buffer_temperature_bottom": {
+        "name": "{widget_name} Buffer bottom temperature"
+      },
+      "buffer_charge": {
+        "name": "{widget_name} Buffer charge"
+      },
+      "max_requirement": {
+        "name": "{widget_name} Maximum buffer demand"
+      },
+      "system_pressure": {
+        "name": "{widget_name} System pressure"
       }
     },
     "number": {
@@ -133,6 +187,9 @@
       },
       "pool_heating": {
         "name": "{widget_name} Pool heating"
+      },
+      "heater_activation": {
+        "name": "{widget_name} Boiler enable"
       }
     },
     "select": {
@@ -154,6 +211,37 @@
           "Marche": "On",
           "Automatique": "Automatic"
         }
+      },
+      "heater_program": {
+        "name": "{widget_name} Boiler operating mode",
+        "state": {
+          "PROGRAM_OFF": "Off",
+          "PROGRAM_AUTOMATIC": "Automatic",
+          "PROGRAM_BOILER": "Hot water only",
+          "PROGRAM_STOP_FIRING": "Stop firing"
+        }
+      }
+    },
+    "button": {
+      "start_heating": {
+        "name": "{widget_name} Start boiler"
+      },
+      "stop_heating": {
+        "name": "{widget_name} Stop boiler"
+      },
+      "start_ignition": {
+        "name": "{widget_name} Start ignition"
+      },
+      "force_charging": {
+        "name": "{widget_name} Force buffer charging"
+      }
+    },
+    "binary_sensor": {
+      "buffer_pump": {
+        "name": "{widget_name} Buffer pump"
+      },
+      "heater_activated": {
+        "name": "{widget_name} Boiler enabled"
       }
     }
   }

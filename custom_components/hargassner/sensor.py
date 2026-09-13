@@ -151,6 +151,49 @@ SENSOR_DESCRIPTIONS: list[tuple[str, str, HargassnerSensorDescription]] = [
 ]
 
 
+# Fields verified against the Hargassner portal Buffer and Heater widgets.
+SENSOR_DESCRIPTIONS.extend([
+    ("BUFFER", "buffer_temperature_top", HargassnerSensorDescription(
+        key="buffer_temperature_top", translation_key="buffer_temperature_top", value_key="buffer_temperature_top",
+        device_class=SensorDeviceClass.TEMPERATURE,
+        state_class=SensorStateClass.MEASUREMENT, native_unit_of_measurement=UnitOfTemperature.CELSIUS,
+    )),
+    ("BUFFER", "buffer_temperature_center_top", HargassnerSensorDescription(
+        key="buffer_temperature_center_top", translation_key="buffer_temperature_center_top", value_key="buffer_temperature_center_top",
+        device_class=SensorDeviceClass.TEMPERATURE,
+        state_class=SensorStateClass.MEASUREMENT, native_unit_of_measurement=UnitOfTemperature.CELSIUS,
+    )),
+    ("BUFFER", "buffer_temperature_center", HargassnerSensorDescription(
+        key="buffer_temperature_center", translation_key="buffer_temperature_center", value_key="buffer_temperature_center",
+        device_class=SensorDeviceClass.TEMPERATURE,
+        state_class=SensorStateClass.MEASUREMENT, native_unit_of_measurement=UnitOfTemperature.CELSIUS,
+    )),
+    ("BUFFER", "buffer_temperature_center_bottom", HargassnerSensorDescription(
+        key="buffer_temperature_center_bottom", translation_key="buffer_temperature_center_bottom", value_key="buffer_temperature_center_bottom",
+        device_class=SensorDeviceClass.TEMPERATURE,
+        state_class=SensorStateClass.MEASUREMENT, native_unit_of_measurement=UnitOfTemperature.CELSIUS,
+    )),
+    ("BUFFER", "buffer_temperature_bottom", HargassnerSensorDescription(
+        key="buffer_temperature_bottom", translation_key="buffer_temperature_bottom", value_key="buffer_temperature_bottom",
+        device_class=SensorDeviceClass.TEMPERATURE,
+        state_class=SensorStateClass.MEASUREMENT, native_unit_of_measurement=UnitOfTemperature.CELSIUS,
+    )),
+    ("BUFFER", "buffer_charge", HargassnerSensorDescription(
+        key="buffer_charge", translation_key="buffer_charge", value_key="buffer_charge",
+        state_class=SensorStateClass.MEASUREMENT, native_unit_of_measurement=PERCENTAGE,
+    )),
+    ("BUFFER", "max_requirement", HargassnerSensorDescription(
+        key="max_requirement", translation_key="max_requirement", value_key="max_requirement",
+        device_class=SensorDeviceClass.TEMPERATURE,
+        state_class=SensorStateClass.MEASUREMENT, native_unit_of_measurement=UnitOfTemperature.CELSIUS,
+    )),
+    ("HEATER", "system_pressure", HargassnerSensorDescription(
+        key="system_pressure", translation_key="system_pressure", value_key="system_pressure",
+        device_class=SensorDeviceClass.PRESSURE,
+        state_class=SensorStateClass.MEASUREMENT, native_unit_of_measurement="bar",
+    )),
+])
+
 async def async_setup_entry(
     hass: HomeAssistant,
     entry: ConfigEntry,
@@ -220,11 +263,23 @@ class HargassnerSensorEntity(HargassnerEntity, SensorEntity):
             f"{widget_key}_{description.key}",
         )
         self.entity_description = description
+        if description.key in ("heater_state", "heater_program"):
+            self._attr_device_class = SensorDeviceClass.ENUM
         self._attr_translation_placeholders = {"widget_name": widget_name}
 
     @property
+    def options(self):
+        if self.entity_description.key in ("heater_state", "heater_program"):
+            value = self._get_value()
+            return [str(value)] if value is not None else []
+        return None
+
+    @property
     def native_value(self) -> Any:
-        return self._get_value()
+        value = self._get_value()
+        if self.entity_description.key in ("heater_state", "heater_program"):
+            return str(value) if value is not None else None
+        return value
 
 
 class HargassnerOnlineSensor(HargassnerEntity, SensorEntity):

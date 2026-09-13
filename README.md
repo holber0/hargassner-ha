@@ -78,3 +78,18 @@ Der Sensor hat die HA-Klassen `energy` und `total_increasing`. Er folgt Änderun
 Für Tages-, Monats- und Jahreswerte können Verbrauchszähler-Helfer (Utility Meter) mit diesem Sensor als Quelle angelegt werden. Sie beginnen ab Einrichtung und rekonstruieren keine früheren Perioden. Beim Wechsel auf einen anderen Quellzähler entsteht absichtlich eine neue Sensoridentität. Den bisherigen kWh-Sensor und den neuen nicht gleichzeitig für denselben Verbrauch zählen lassen. Vorhandene Statistiken werden nicht automatisch migriert.
 
 Die Cloud-API liefert im bisher geprüften Code keinen bestätigten kumulierten kg-Verbrauchswert. Diese Funktion benötigt deshalb eine vorhandene kg-Quelle, etwa aus Telnet. Sie ersetzt die lokale Verbrauchserfassung nicht. Eine spätere direkt belegte Cloud-Quelle kann auf dieselbe Berechnung aufsetzen.
+
+## Puffer und Kessel (ab v1.0.5)
+
+Grundlage sind die öffentlich ausgelieferten Portal-Komponenten Heater und Buffer, geprüft am 12.09.2026. Entitäten erscheinen nur für die von der Anlage angebotenen API-Felder und Ressourcen.
+
+- Puffer: bis zu fünf Fühlertemperaturen, Füllgrad, höchste Temperaturanforderung und Pumpenstatus.
+- Puffer-Zwangsladung als einzelne Aktion, sofern freigegeben. Ein Ladeabbruch wird nicht angeboten, da kein belegter API-Befehl vorliegt.
+- Kessel: Betriebszustände und aktuelles Programm, Anlagendruck sowie Freigabestatus.
+- Kessel-Betriebsart: Aus, Automatik, nur Warmwasser und Feuerung aus, sofern die API diese Optionen anbietet. Andere aktive Programme bleiben im separaten Programmsensor sichtbar.
+- Kesselfreigabe als Schalter, sofern ein schreibbarer activated-Parameter vorhanden ist. Freigabe bedeutet nicht, dass der Brenner gerade läuft.
+- Kessel starten, stoppen und Zündung starten als einzelne Schaltflächen, sofern die API diese Aktionen anbietet. Stoppen erfolgt über die Regelung, nicht durch Unterbrechen der Stromversorgung.
+
+Vor Steuerbefehlen werden die Daten aktualisiert und API-Sperren geprüft. Cloud-Ausfälle sperren die neuen Bedienelemente. Fehler werden angezeigt. Der Zünddienst berücksichtigt jetzt die Anlagen-ID; bei mehreren Anlagen muss sie eindeutig angegeben werden.
+
+Nach dem Update Home Assistant neu starten. Keine Neueinrichtung erforderlich. Die Funktionen sind mit simulierten Daten getestet; ein Live-Test an der Heizung steht aus. Es wurden keine echten Start-, Stopp-, Zünd- oder Ladebefehle ausgeführt. API-Funktionen, die erst später erscheinen, werden nach Neuladen der Integration angelegt.

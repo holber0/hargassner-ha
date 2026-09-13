@@ -63,10 +63,40 @@
         "name": "{widget_name} Température extérieure (moyenne)"
       },
       "heater_state": {
-        "name": "{widget_name} État chaudière"
+        "name": "{widget_name} État chaudière",
+        "state": {
+          "STATE_OFF": "Off",
+          "STATE_IGNITION": "Ignition",
+          "STATE_IGNITION_WAIT": "Ignition wait",
+          "STATE_EFFICIENCY_FIRE": "Efficiency fire",
+          "STATE_THROTTLE_EFFICIENCY_FIRE": "Throttle efficiency fire",
+          "STATE_BURN_OUT": "Burn out",
+          "STATE_EMBERS_KEEPING": "Embers keeping",
+          "STATE_RESIDUAL_HEATING": "Residual heating",
+          "STATE_OVERHEATING": "Overheating",
+          "STATE_DEASHING": "Deashing",
+          "STATE_FILLING": "Filling",
+          "STATE_OVERHEAT_PROTECTION": "Overheat protection",
+          "STATE_MANUAL": "Manual",
+          "STATE_DOOR_OPEN": "Door open",
+          "STATE_DOOR_CLOSED": "Door closed",
+          "STATE_BLOCK_PROTECTION": "Block protection",
+          "STATE_ASH_DRAWER_OPEN": "Ash drawer open",
+          "STATE_BURN_ASSISTANT": "Burn assistant",
+          "STATE_BACKUP_MODE_LOGS": "Backup mode logs"
+        }
       },
       "heater_program": {
-        "name": "{widget_name} Programme"
+        "name": "{widget_name} Programme",
+        "state": {
+          "PROGRAM_MANUAL": "Manual",
+          "PROGRAM_OFF": "Arrêt",
+          "PROGRAM_BOILER": "Eau chaude seule",
+          "PROGRAM_AUTOMATIC": "Automatique",
+          "PROGRAM_STOP_FIRING": "Arrêt combustion",
+          "PROGRAM_PELLETS_DISABLED": "Pellets disabled",
+          "PROGRAM_CHIMNEY_SWEEPER": "Chimney sweeper"
+        }
       },
       "fuel_stock": {
         "name": "{widget_name} Stock combustible"
@@ -102,6 +132,30 @@
       },
       "pellet_energy": {
         "name": "Énergie du combustible (calculée)"
+      },
+      "buffer_temperature_top": {
+        "name": "{widget_name} Température tampon haut"
+      },
+      "buffer_temperature_center_top": {
+        "name": "{widget_name} Température tampon milieu haut"
+      },
+      "buffer_temperature_center": {
+        "name": "{widget_name} Température tampon milieu"
+      },
+      "buffer_temperature_center_bottom": {
+        "name": "{widget_name} Température tampon milieu bas"
+      },
+      "buffer_temperature_bottom": {
+        "name": "{widget_name} Température tampon bas"
+      },
+      "buffer_charge": {
+        "name": "{widget_name} Charge tampon"
+      },
+      "max_requirement": {
+        "name": "{widget_name} Demande maximale tampon"
+      },
+      "system_pressure": {
+        "name": "{widget_name} Pression système"
       }
     },
     "number": {
@@ -133,6 +187,9 @@
       },
       "pool_heating": {
         "name": "{widget_name} Pool Heating"
+      },
+      "heater_activation": {
+        "name": "{widget_name} Autorisation chaudière"
       }
     },
     "select": {
@@ -154,6 +211,37 @@
           "Marche": "Marche",
           "Automatique": "Automatique"
         }
+      },
+      "heater_program": {
+        "name": "{widget_name} Mode chaudière",
+        "state": {
+          "PROGRAM_OFF": "Arrêt",
+          "PROGRAM_AUTOMATIC": "Automatique",
+          "PROGRAM_BOILER": "Eau chaude seule",
+          "PROGRAM_STOP_FIRING": "Arrêt combustion"
+        }
+      }
+    },
+    "button": {
+      "start_heating": {
+        "name": "{widget_name} Démarrer chaudière"
+      },
+      "stop_heating": {
+        "name": "{widget_name} Arrêter chaudière"
+      },
+      "start_ignition": {
+        "name": "{widget_name} Démarrer l’allumage"
+      },
+      "force_charging": {
+        "name": "{widget_name} Forcer la charge tampon"
+      }
+    },
+    "binary_sensor": {
+      "buffer_pump": {
+        "name": "{widget_name} Pompe tampon"
+      },
+      "heater_activated": {
+        "name": "{widget_name} Chaudière autorisée"
       }
     }
   }

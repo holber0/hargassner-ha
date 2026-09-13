@@ -44,7 +44,7 @@ class HargassnerCoordinator(DataUpdateCoordinator):
         except HargassnerAuthError as err:
             _LOGGER.error("Re-authentication failed: %s", err)
             if self._last_good_data:
-                return self._last_good_data
+                return {**self._last_good_data, "_online": False}
             raise UpdateFailed(f"Authentication error: {err}") from err
 
         try:
@@ -52,7 +52,7 @@ class HargassnerCoordinator(DataUpdateCoordinator):
         except HargassnerAuthError as err:
             if self._last_good_data:
                 _LOGGER.warning("Auth error, using cached data: %s", err)
-                return self._last_good_data
+                return {**self._last_good_data, "_online": False}
             raise UpdateFailed(f"Authentication error: {err}") from err
         except HargassnerApiError as err:
             if self._last_good_data:
@@ -118,7 +118,7 @@ class HargassnerCoordinator(DataUpdateCoordinator):
             }
 
         self._last_good_data = dict(result)
-        self._last_good_data["_online"] = True
+        self._last_good_data["_online"] = self.online_state
         return result
 
     async def async_patch_value(self, resource_url: str, value: Any) -> bool:
